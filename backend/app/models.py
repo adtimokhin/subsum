@@ -97,6 +97,7 @@ class SubscriptionCreate(SQLModel):
     """
     name: str
     cost: float
+    user_id: int
     frequency: SubscriptionFrequency  # Using the Enum for frequency
     next_billing_date: datetime
     ends_at: Optional[datetime] = None  # Optional end date
