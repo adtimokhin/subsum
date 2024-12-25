@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 
 from app.routes import users, subscriptions, login
-from project_startup import pre_start_tasks
+from app.project_startup import pre_start_tasks
 
 # Run pre-start tasks
 pre_start_tasks()
