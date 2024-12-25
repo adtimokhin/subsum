@@ -9,7 +9,6 @@ class UserBase(SQLModel):
     """
     username: str
     email: str
-    is_verified: bool = False
 
 # Table model for the database
 class User(UserBase, table=True):
@@ -17,7 +16,7 @@ class User(UserBase, table=True):
     Represents the users table in the database.
     """
     id: Optional[int] = Field(default=None, primary_key=True)
-    password_hash: str = Field(nullable=False)
+    password: str = Field(nullable=False)
 
 # Public model for API responses
 class UserPublic(UserBase):
@@ -25,8 +24,6 @@ class UserPublic(UserBase):
     Used for public-facing user data in API responses.
     """
     id: int
-    created_at: datetime
-    updated_at: datetime
 
     class Config:
         orm_mode = True  # Ensures compatibility with ORM objects
