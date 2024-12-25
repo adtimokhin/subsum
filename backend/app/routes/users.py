@@ -5,6 +5,8 @@ from sqlmodel import select
 from app.core.db import SessionDep
 from app.models import User, UserBase, UserCreate, UserPublic, UserUpdate
 
+from app.core.security import get_password_hash, CurrentUser
+
 router = APIRouter(prefix="/users", tags=["users"])
 
 
@@ -15,6 +17,8 @@ def create_user(user: UserCreate, session: SessionDep):
     """
 
     db_user = User.model_validate(user)
+    # Hashing the password
+    db_user.password = get_password_hash(db_user.password)
     session.add(db_user)
     session.commit()
     session.refresh(db_user)
@@ -25,6 +29,7 @@ def create_user(user: UserCreate, session: SessionDep):
 @router.get("/", response_model=list[UserPublic])
 def read_users(
     session: SessionDep,
+    current_user: CurrentUser,
     offset: int = 0,
     limit: Annotated[int, Query(le=100)] = 100,
 ):

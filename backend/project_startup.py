@@ -1,4 +1,6 @@
 from app.core.db import create_db_and_tables
+from dotenv import load_dotenv
+import os
 
 def initialize_database():
     """
@@ -13,6 +15,8 @@ def pre_start_tasks():
     Run all pre-startup tasks for the project.
     """
     print("Running pre-startup tasks...")
+
     initialize_database()
-    # Add additional startup tasks here if needed
+    load_dotenv()
+    
     print("All pre-startup tasks completed.")
