@@ -10,7 +10,6 @@ router = APIRouter(prefix="/users", tags=["users"])
 def create_user(user: UserCreate, session: SessionDep):
     """
     Creates user and adds it to the database.
-    Also validates the User data
     """
 
     db_user = User.model_validate(user)
